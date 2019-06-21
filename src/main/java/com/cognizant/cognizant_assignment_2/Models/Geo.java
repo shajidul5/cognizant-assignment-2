@@ -1,5 +1,6 @@
 package com.cognizant.cognizant_assignment_2.Models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -10,25 +11,20 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Accessors(chain = true)
-public class Address {
+public class Geo {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(columnDefinition = "TEXT")
-    private String street;
+    private String lat;
 
     @Column(columnDefinition = "TEXT")
-    private String suite;
+    private String lng;
 
-    @Column(columnDefinition = "TEXT")
-    private String city;
-
-    @Column(columnDefinition = "TEXT")
-    private String zipcode;
-
-    @OneToOne(fetch = FetchType.LAZY,
-            cascade =  CascadeType.ALL,
-            mappedBy = "address")
-    private Geo geo;
+    @OneToOne
+    @JoinColumn(name = "id")
+    @JsonBackReference
+    private Address address;
 }
